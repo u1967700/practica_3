@@ -17,4 +17,19 @@ var config = {
 
 var game = new Phaser.Game(config);
 
+document.getElementById('guardar').addEventListener('click', 
+    function(){
+        fetch("./php/save.php",{
+            method: "POST",
+            body: "",
+            headers: {"content-type":"application/json; charset=UTF-8"}
+        })
+        .then(response=>{
+            if (response.ok) response.text();
+            else trow("PHP connection fail");
+        })
+        .then(partida=>sessionStorage.save = partida)
+        .catch(err=>sessionStorage.save = localStorage.save)
+        .finally(()=>window.location.assign("../"));
+    });
 
